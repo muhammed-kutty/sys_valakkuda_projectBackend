@@ -7,7 +7,7 @@ connectDB()
 
 import { authRoute } from './Routes/authRoutes.js'
 import { categoryRoute } from './Routes/categoryRoute.js'
-import { userRoute } from './Routes/userROute.js'
+import {userRoute} from './Routes/userRoute.js'
 
 
 dotenv.config()
