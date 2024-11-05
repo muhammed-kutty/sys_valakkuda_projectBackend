@@ -8,6 +8,7 @@ const JWT_SECRET =process.env.JWT_SECRET;
 
 // Login user
 export const login = async (req, res) => {
+  console.log("inside Loginddddddddddddddd",req.username)
   try {
     const { username, password } = req.body;
 
