@@ -18,10 +18,10 @@ export const verifyToken = (req, res, next) => {
         if (err.name === 'TokenExpiredError') {
             return res.status(401).json({isValied:false, message: 'Token has expired',err });
           }
-      return res.status(401).json({isValied:false, message: 'Unauthorized',err });
+      return res.status(401).json({isValied:false, message: 'Unauthorized',err,token });
     }
     if(decoded.username !== 'sysVKD@gmail.com'){
-      return res.status(401).json({isValied:false, message: 'username Not match , unautherised' });
+      return res.status(401).json({isValied:false, message: 'username Not match , unautherised', token });
     }
     req.username = decoded.username;
     // console.log("imn middleware////")
