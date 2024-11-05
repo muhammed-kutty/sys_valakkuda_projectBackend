@@ -7,8 +7,11 @@ const JWT_SECRET =process.env.JWT_SECRET;
 
 
 export const verifyToken = (req, res, next) => {
+  // const token = req.headers['authorization']?.split(' ')[1];
+  // console.log("in jwt tttttttttttttttttttttttttttt",req.headers['authorization']) 
   const token = req.headers['authorization']?.split(' ')[1];
-  console.log("in jwt tttttttttttttttttttttttttttt",req.headers['authorization']) 
+console.log("Authorization header:", req.headers['authorization']);
+console.log("Extracted token:", token);
   if (!token) {
     return res.status(403).json({isValied:false, message: 'Token is required' });
   }
