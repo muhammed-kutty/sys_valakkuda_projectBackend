@@ -12,6 +12,9 @@ export const verifyToken = (req, res, next) => {
   if (!token) {
     return res.status(403).json({isValied:false, message: 'Token is required' });
   }
+  if (token === "null") {
+    return res.status(403).json({isValied:false, message: 'Token is Null' , token });
+  }
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {
