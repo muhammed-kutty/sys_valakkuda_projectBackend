@@ -8,7 +8,7 @@ const JWT_SECRET =process.env.JWT_SECRET;
 
 export const verifyToken = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1];
-  // console.log(req.headers) 
+  console.log(req.headers) 
   if (!token) {
     return res.status(403).json({isValied:false, message: 'Token is required' });
   }
