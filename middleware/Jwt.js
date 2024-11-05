@@ -16,12 +16,12 @@ export const verifyToken = (req, res, next) => {
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {
         if (err.name === 'TokenExpiredError') {
-            return res.status(401).json({isValied:false, message: 'Token has expired' });
+            return res.status(401).json({isValied:false, message: 'Token has expired',err });
           }
-      return res.status(401).json({isValied:false, message: 'Unauthorized' });
+      return res.status(401).json({isValied:false, message: 'Unauthorized',err });
     }
     if(decoded.username !== 'sysVKD@gmail.com'){
-      return res.status(401).json({isValied:false, message: 'Unauthorized' });
+      return res.status(401).json({isValied:false, message: 'username Not match , unautherised' });
     }
     req.username = decoded.username;
     // console.log("imn middleware////")
