@@ -7,7 +7,7 @@ export const categoryRoute = express.Router()
 categoryRoute.post('/category',verifyToken,addCategory)
 categoryRoute.put('/category/:id',verifyToken,updateCategory)
 categoryRoute.delete('/category/:id',verifyToken,deleteCategory)
-categoryRoute.get('/category',verifyToken , getAllcategory)
+categoryRoute.get('/category' , getAllcategory)
 
 
  

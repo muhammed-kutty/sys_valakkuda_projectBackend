@@ -80,16 +80,16 @@ export const update = async (req ,res)=>{
         }
 
         if(phone_number){
-            const user = await USers.findOne({
-                where:{
-                    phone_number:phone_number
-                }
-                })
+            // const user = await USers.findOne({
+            //     where:{
+            //         phone_number:phone_number
+            //     }
+            //     })
     
-                if(user){
-               return res.status(400).json({status:false ,message:"User phone number Already exist!!"})
+            //     if(user){
+            //    return res.status(400).json({status:false ,message:"User phone number Already exist!!"})
     
-                }
+            //     }
             user.phone_number = phone_number
         }
 
@@ -119,12 +119,15 @@ export const update = async (req ,res)=>{
 export const destroy  = async (req , res )=>{
 
     const {id} = req.params
-
     try {
+        console.log("ffffffffffffffffffffff",req.params)
+        if(!id){
+          return  res.status(404).json({message:"Id is required",status:false})
 
+        }
         const user = await USers.findByPk(id)
         if(!user){
-            res.status(404).json({message:"User Not Found",status:false})
+          return  res.status(404).json({message:"User Not Found",status:false})
         }
 
         await user.destroy();
@@ -153,6 +156,46 @@ export const get = async (req ,res )=>{
         }) 
 
         res.status(200).json({message:"data fetched", status:true , users})
+    } catch (error) {
+        res.status(500).json({
+            status:true,
+            message:"faild",
+            err:error
+        })
+    }
+}
+
+export const getbyCatID = async (req,res)=>{
+    const {id} = req.params
+
+    console.log("inside catID api",id)
+    try {
+        const users = await USers.findAll({
+            where:{
+                categorie_ID : id
+            },
+            include:{
+                model: Categories,
+                as: 'category', 
+                attributes:['name','categorieID']
+            },
+            attributes:['name',"phone_number","usersID"]
+        })
+
+        if(!users || users.length === 0){
+            return  res.status(404).json({message:"Users Not Found in this category",status:false})
+
+        }
+        // console.log("useeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuse,",users)
+        const data = users.map((item)=>({
+            userID:item.usersID,
+            name:item.name,
+            phone_number :item.phone_number,
+            categoryName:item.category?.name,
+            categorieID:item.category?.categorieID
+    }))
+        res.status(200).json({message:"data fetched", status:true , data})
+        
     } catch (error) {
         res.status(500).json({
             status:true,

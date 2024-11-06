@@ -97,6 +97,7 @@ export const getAllcategory = async (req, res)=>{
     try {
         console.log("api called")
         const categories = await Categories.findAll();
+     
         res.status(200).json({message:"all getegories",categories})
 
     } catch (error) {

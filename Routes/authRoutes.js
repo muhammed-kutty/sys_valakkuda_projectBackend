@@ -5,6 +5,6 @@ import { verifyToken } from '../middleware/Jwt.js';
 const authRoute = express.Router()
 
 authRoute.post('/login',login)
-authRoute.post('/verify',verifyToken,verify)
+authRoute.get('/verify',verifyToken,verify)
 
 export {authRoute}
